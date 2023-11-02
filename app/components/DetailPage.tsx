@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 export default function DetailPage({
@@ -13,8 +15,14 @@ export default function DetailPage({
         <h1 className="m-0 p-0 absolute -right-2 -top-6 text-9xl text-slate-300 z-0">
           {pageName}
         </h1>
-        <div className="absolute left-5 top-5 bg-white/50 h-[calc(100%-3rem)] w-[calc(100%-3rem)] rounded-3xl border-white border-solid border-[1px]">
-          {children}
+        <div className=" bg-white/30 h-full w-full relative rounded-3xl border-white border-solid border-[1px] overflow-y-hidden">
+          <button
+            onClick={() => history.back()}
+            className="absolute p-5 float-left"
+          >
+            {'<'}
+          </button>
+          <div className="h-full w-full px-8">{children}</div>
         </div>
       </div>
     </main>
