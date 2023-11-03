@@ -5,7 +5,7 @@ import Image from 'next/image'
 function Card() {
   return (
     <div className="flex flex-col h-full text-white p-8 justify-around">
-      <section className="flex flex-row justify-center items-center gap-6">
+      <section className="flex flex-col lg:flex-row justify-center items-center gap-6">
         <Image
           src="/me.jpg"
           alt="me"
@@ -13,11 +13,11 @@ function Card() {
           height={150}
           className="rounded-full h-25 w-25"
         />
-        <p className="text-4xl">Tim Chen</p>
+        <p className="text-2xl lg:text-4xl">Tim Chen</p>
       </section>
       <section className="flex flex-col items-end">
-        <p className="text-3xl">National ChengChi University</p>
-        <p className="text-3xl">Computer Science</p>
+        <p className="text-xl sm:text-2xl lg:text-3xl">National ChengChi University</p>
+        <p className="text-xl sm:text-2xl lg:text-3xl">Computer Science</p>
       </section>
     </div>
   )

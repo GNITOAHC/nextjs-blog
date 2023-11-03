@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black overflow-clip relative h-screen font-mono">
+      <body className="bg-black overflow-x-clip relative h-screen font-mono">
         <div
           style={{
             width: 554.69,
