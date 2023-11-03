@@ -7,6 +7,10 @@ const nextConfig = {
   // Content layer configuration
   reactStrictMode: true,
   swcMinify: true,
+  // Custom webpack configuration is detected. ( warning message )
+  experimental: {
+    webpackBuildWorker: true
+  }
 }
 
 module.exports = nextConfig

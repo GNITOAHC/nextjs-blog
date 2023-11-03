@@ -6,6 +6,7 @@ import { format, parseISO } from 'date-fns'
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import './blog.css'
 
 // Define your custom MDX components.
 const mdxComponents: MDXComponents = {
@@ -28,7 +29,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const MDXContent = useMDXComponent(post.body.code)
 
   return (
-    <article className="mx-auto max-w-xl py-8">
+    <article className="mx-auto max-w-fit py-8 h-full overflow-y-scroll overflow-x-scroll font-sans">
       <div className="mb-8 text-center">
         <time dateTime={post.date} className="mb-1 text-xs text-sky-50">
           {format(parseISO(post.date), 'LLLL d, yyyy')}
