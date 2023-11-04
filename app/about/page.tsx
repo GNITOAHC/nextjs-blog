@@ -6,6 +6,9 @@ export default function Home() {
     <DetailPage pageName="ABOUT ME">
       <div className="flex flex-col justify-center items-center h-full">
         Coming soon ...
+        <a href="/resume.pdf" download="resume.pdf" className="underline text-white">
+          v Download CV first v
+        </a>
       </div>
     </DetailPage>
   )
