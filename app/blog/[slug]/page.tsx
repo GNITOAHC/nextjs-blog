@@ -7,7 +7,22 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import './blog.css'
+import { Metadata } from 'next'
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata | undefined> {
+  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
+
+  if (!post) return
+
+  return {
+    title: `${post.title} | Tim Chen`,
+    description: post.summary,
+  }
+}
 // Define your custom MDX components.
 const mdxComponents: MDXComponents = {
   // Override the default <a> element to use the next/link component.
