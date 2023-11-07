@@ -14,8 +14,8 @@ function PostCard(post: Post) {
           {post.title}
         </Link>
       </h2>
-      <time dateTime={post.date} className="mb-2 block text-xs text-white">
-        {format(parseISO(post.date), 'LLLL d, yyyy')}
+      <time dateTime={post.lastEdit ?? post.date} className="mb-2 block text-xs text-white">
+        {format(parseISO(post.lastEdit ?? post.date), 'LLLL d, yyyy')}
       </time>
       <div className="text-sm mb-3">{post.summary}</div>
       {/* <div */}
@@ -28,7 +28,7 @@ function PostCard(post: Post) {
 
 function PostList() {
   const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
+    compareDesc(new Date(a.lastEdit ?? a.date), new Date(b.lastEdit ?? b.date))
   )
 
   return (
