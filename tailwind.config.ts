@@ -8,10 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      typography: (theme: any) => ({
+      typography: (_theme: any) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.black'),
+            /* color: theme('colors.black'), */
           },
         },
       }),

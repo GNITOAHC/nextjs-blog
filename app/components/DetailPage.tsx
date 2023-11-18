@@ -15,10 +15,10 @@ export default function DetailPage({
         <h1 className="m-0 p-0 absolute -right-2 -top-6 text-9xl text-slate-300 z-0">
           {pageName}
         </h1>
-        <div className=" bg-white/30 h-full w-full relative rounded-3xl border-white border-solid border-[1px] overflow-y-hidden">
+        <div className=" bg-white/20 h-full w-full relative rounded-3xl border-white border-solid border-[1px] overflow-y-hidden">
           <button
             onClick={() => history.back()}
-            className="absolute p-5 float-left"
+            className="absolute p-5 float-left hidden sm:block"
           >
             {'<'}
           </button>
