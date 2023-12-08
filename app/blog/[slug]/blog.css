@@ -24,15 +24,14 @@ span[data-highlighted-chars] {
 pre {
   --shiki-color-background: rgb(36, 41, 46);
   border: solid white;
-  border-radius: 25px;
+  border-radius: 10px;
   overflow-wrap: break-word;
   padding: 0.5rem;
-  font-size: 70%;
+  font-size: 80%;
   margin-top: 2rem;
 }
 
 span {
-
   border-left-width: 0.15rem;
   border-left-style: none;
   /* margin-left: 0.25rem; */
@@ -88,10 +87,12 @@ span {
 /*   background-color: #FFFFFF; */
 /* } */
 
-code > [data-line]::before {
+code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
- 
+}
+
+code > [data-line]::before {
   /* Other styling */
   display: inline-block;
   width: 1rem;

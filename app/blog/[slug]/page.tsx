@@ -44,7 +44,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const MDXContent = useMDXComponent(post.body.code)
 
   return (
-    <article className="mx-auto max-w-fit py-8 h-full overflow-y-scroll overflow-x-scroll font-sans">
+    <article className="mx-auto max-w-fit py-8 h-full overflow-y-scroll overflow-x-scroll font-sans prose prose-invert">
       <div className="mb-8 text-center">
         <time dateTime={post.date} className="mb-1 text-xs text-sky-50">
           {format(parseISO(post.date), 'LLLL d, yyyy')}
@@ -52,7 +52,9 @@ export default function Page({ params }: { params: { slug: string } }) {
         <h1 className="text-3xl font-bold text-white">{post.title}</h1>
       </div>
       {/* <div className="[&>*]:mb-3 [&>*:last-child]:mb-0" dangerouslySetInnerHTML={{ __html: post.body.html }} /> */}
-      <MDXContent components={mdxComponents} />
+      <div className="hover:prose-a:text-sky-200 hover:prose-a:transform hover:prose-a:transition hover:prose-a:delay-75">
+        <MDXContent components={mdxComponents} />
+      </div>
     </article>
   )
 }
