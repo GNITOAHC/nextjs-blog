@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { Metadata } from 'blog'
+import type { Metadata, Post } from 'blog'
 
 function getFiles(dir: string, fileType: string) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === fileType)
@@ -32,7 +32,7 @@ function readMDXFile(filePath: string) {
   return parseMDXFrontmatter(rawContent)
 }
 
-function getMDXData(dir: string) {
+function getMDXData(dir: string): Post[] {
   let mdxFiles = getFiles(dir, '.mdx')
   return mdxFiles.map((file) => {
     let { metadata, content } = readMDXFile(path.join(dir, file))
@@ -41,10 +41,10 @@ function getMDXData(dir: string) {
       metadata,
       slug,
       content,
-    }
+    } as Post
   })
 }
 
-export function getBlogPosts() {
+export function getBlogPosts(): Post[] {
   return getMDXData(path.join(process.cwd(), 'content'))
 }
