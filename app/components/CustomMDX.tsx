@@ -32,6 +32,18 @@ const components = {
       className={props.className}
     />
   ),
+  a: ({ children, href }: any) => {
+    return (
+      <a
+        href={href}
+        className="hover:text-sky-200"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    )
+  },
 }
 
 export default async function CustomMDX(props: {
