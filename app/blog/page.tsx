@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { compareDesc, format, parseISO } from 'date-fns'
-import { allPosts, Post } from 'contentlayer/generated'
+import { getBlogPosts } from '@/lib/db/blog'
+import type { Post } from 'blog'
 import React from 'react'
 
 function PostCard(post: Post) {
@@ -8,27 +9,32 @@ function PostCard(post: Post) {
     <div className="mb-8">
       <h2 className="mb-1 text-xl">
         <Link
-          href={post.url}
+          href={`/blog/${post.slug}`}
           className="text-blue-700 hover:text-blue-900 dark:text-blue-400"
         >
-          {post.title}
+          {post.metadata.title}
         </Link>
       </h2>
-      <time dateTime={post.lastEdit ?? post.date} className="mb-2 block text-xs text-white">
-        {format(parseISO(post.lastEdit ?? post.date), 'LLLL d, yyyy')}
+      <time
+        dateTime={post.metadata.lastEdit ?? post.metadata.date}
+        className="mb-2 block text-xs text-white"
+      >
+        {format(
+          parseISO(post.metadata.lastEdit ?? post.metadata.date),
+          'LLLL d, yyyy'
+        )}
       </time>
-      <div className="text-sm mb-3">{post.summary}</div>
-      {/* <div */}
-      {/*   className="text-sm [&>*]:mb-3 [&>*:last-child]:mb-0" */}
-      {/*   dangerouslySetInnerHTML={{ __html: post.body.html }} */}
-      {/* /> */}
+      <div className="text-sm mb-3">{post.metadata.summary}</div>
     </div>
   )
 }
 
 function PostList() {
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.lastEdit ?? a.date), new Date(b.lastEdit ?? b.date))
+  const posts = getBlogPosts().sort((a, b) =>
+    compareDesc(
+      new Date(a.metadata.lastEdit ?? a.metadata.date),
+      new Date(b.metadata.lastEdit ?? b.metadata.date)
+    )
   )
 
   return (
