@@ -27,7 +27,6 @@ type TableData = {
 }
 function Table({ data }: { data: TableData }) {
   const detectCode = (str: string) => {
-    console.log(str)
     const regex = /`([^`]+)`/g
     const match = regex.exec(str)
     return match ? <Code>{str.replaceAll('`', '')}</Code> : str
