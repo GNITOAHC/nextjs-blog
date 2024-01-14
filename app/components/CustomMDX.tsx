@@ -21,6 +21,39 @@ function Code({ children, ...props }: any) {
   )
 }
 
+type TableData = {
+  headers: string[]
+  rows: string[][]
+}
+function Table({ data }: { data: TableData }) {
+  const detectCode = (str: string) => {
+    console.log(str)
+    const regex = /`([^`]+)`/g
+    const match = regex.exec(str)
+    return match ? <Code>{str.replaceAll('`', '')}</Code> : str
+  }
+
+  let headers = data.headers.map((header, index) => (
+    <th key={index}>{header}</th>
+  ))
+  let rows = data.rows.map((row, index) => (
+    <tr key={index}>
+      {row.map((cell, cellIndex: number) => (
+        <td key={cellIndex}>{detectCode(cell)}</td>
+      ))}
+    </tr>
+  ))
+
+  return (
+    <table>
+      <thead>
+        <tr>{headers}</tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  )
+}
+
 const components = {
   code: Code,
   Image: (props: any) => (
@@ -44,6 +77,7 @@ const components = {
       </a>
     )
   },
+  Table: Table,
 }
 
 export default async function CustomMDX(props: {
