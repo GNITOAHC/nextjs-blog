@@ -10,7 +10,7 @@ function PostCard(post: Post) {
       <h2 className="mb-1 text-xl">
         <Link
           href={`/blog/${post.slug}`}
-          className="text-blue-700 hover:text-blue-900 dark:text-blue-400"
+          className="text-blue-400 hover:text-blue-900"
         >
           {post.metadata.title}
         </Link>
