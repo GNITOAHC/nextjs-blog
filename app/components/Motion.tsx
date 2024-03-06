@@ -12,7 +12,7 @@ export default function Motion({ children }: { children: React.ReactNode }) {
     if (pathname === '/') {
       bgBlue1.style.top = '-5%'
       bgBlue1.style.left = '-10%'
-    } else if (pathname.startsWith('/blog/')) {
+    } else if (pathname.startsWith('/blog/') || pathname.startsWith('/about')) {
       bgBlue1.style.top = '-150%'
       bgBlue1.style.left = '-150%'
     } else {
@@ -25,7 +25,7 @@ export default function Motion({ children }: { children: React.ReactNode }) {
     if (pathname === '/') {
       bgYellow1.style.top = '-150%'
       bgYellow1.style.right = '-150%'
-    } else if (pathname.startsWith('/blog/')) {
+    } else if (pathname.startsWith('/blog/') || pathname.startsWith('/about')) {
       bgYellow1.style.top = '-150%'
       bgYellow1.style.right = '-150%'
     } else {
@@ -38,7 +38,7 @@ export default function Motion({ children }: { children: React.ReactNode }) {
     if (pathname === '/') {
       bgPink1.style.top = '-150%'
       bgPink1.style.right = '-150%'
-    } else if (pathname.startsWith('/blog/')) {
+    } else if (pathname.startsWith('/blog/') || pathname.startsWith('/about')) {
       bgPink1.style.top = '-35%'
       bgPink1.style.right = '-35%'
     } else {
