@@ -13,14 +13,26 @@ zip [filename.zip] [file_to_zip]
 ## Options
 
 <Table
-    data={{
-        headers: ['Options', 'Description', 'Syntax'],
-        rows: [
-            ['`-r`', 'Recursively zip a directory', '`zip -r [filename.zip] [dir_name]`'],
-            ['`-x`', 'Explicitly exclude the specified files', '`zip -r . [filename.zip] -x [excluded_file]`'],
-            ['`-m`', 'Move the original files into the archive', '`zip -m [filename.zip] [file_to_zip]`']
-        ]
-    }}
+  data={{
+    headers: ['Options', 'Description', 'Syntax'],
+    rows: [
+      [
+        '`-r`',
+        'Recursively zip a directory',
+        '`zip -r [filename.zip] [dir_name]`',
+      ],
+      [
+        '`-x`',
+        'Explicitly exclude the specified files',
+        '`zip -r . [filename.zip] -x [excluded_file]`',
+      ],
+      [
+        '`-m`',
+        'Move the original files into the archive',
+        '`zip -m [filename.zip] [file_to_zip]`',
+      ],
+    ],
+  }}
 />
 
 ## Examples
@@ -36,6 +48,7 @@ zip [filename.zip] [file_to_zip]
    ```shell
    zip -r zip.zip .
    ```
+
    This command will zip the entire directory into the zip file.
 
 3. Zipping a directory while excluding some subdirectories
@@ -43,6 +56,7 @@ zip [filename.zip] [file_to_zip]
    ```shell
    zip -r zip.zip . -x "node_modules/*"
    ```
+
    This command will exclude the subdirectory `node_modules`.
 
    ```shell
@@ -54,6 +68,7 @@ zip [filename.zip] [file_to_zip]
    ```shell
    zip -m documents.zip *.txt
    ```
+
    This command will zip all `.txt` files into `documents.zip` and then delete the original `.txt` files from the folder.
 
 ## Browsing the zip file information

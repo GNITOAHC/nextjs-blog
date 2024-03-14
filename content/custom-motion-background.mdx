@@ -16,7 +16,7 @@ Base NextJs, CSS and Typescript knowledge.
 
 ## Step 1: Create a new NextJs project
 
-We're going to use `bun` to create our new project. For more information, check out [bun.sh](https://bun.sh/guides/ecosystem/nextjs).  
+We're going to use `bun` to create our new project. For more information, check out [bun.sh](https://bun.sh/guides/ecosystem/nextjs).
 
 ```shell
 bun create next-app # Initialize a NextJs app with create-next-app and choose all the default options.
@@ -48,7 +48,7 @@ import React from 'react'
 import { usePathname } from 'next/navigation'
 import './motion.css'
 
-export default function Motion ({ children }: { children: React.ReactNode }) {
+export default function Motion({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   React.useEffect(() => {
@@ -56,7 +56,7 @@ export default function Motion ({ children }: { children: React.ReactNode }) {
   }, [pathname])
 
   return (
-    <div className="overflow-x-clip overflow-y-hidden relative h-screen font-mono">        
+    <div className="overflow-x-clip overflow-y-hidden relative h-screen font-mono">
       <div
         id="bgcircle"
         style={{
@@ -108,7 +108,7 @@ div {
 
 ## Step 3: Wrap the app inside the Motion component
 
-After setting up the component, we need to wrap our entire app inside this background privider.  
+After setting up the component, we need to wrap our entire app inside this background privider.
 
 ```diff
 // app/layout.tsx
