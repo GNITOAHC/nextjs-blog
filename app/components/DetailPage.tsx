@@ -1,13 +1,16 @@
 'use client'
 
 import React from 'react'
+import { cn } from '@/lib/utils'
 
 export default function DetailPage({
   pageName,
   children,
+  className,
 }: {
   pageName: string
   children: React.ReactNode
+  className?: string
 }) {
   return (
     <main className="p-5 h-full">
@@ -22,7 +25,7 @@ export default function DetailPage({
           >
             {'<'}
           </button>
-          <div className="h-full w-full px-8">{children}</div>
+          <div className={cn('h-full w-full px-8', className)}>{children}</div>
         </div>
       </div>
     </main>
