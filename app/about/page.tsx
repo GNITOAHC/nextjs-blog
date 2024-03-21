@@ -5,7 +5,6 @@ import { aboutmeContent } from './data'
 
 export default function Home() {
   const content = aboutmeContent()
-  console.log(content)
 
   return (
     <DetailPage pageName="ABOUT ME">
