@@ -69,6 +69,14 @@ export const getProjects = (): ProjectType[] => {
       api: 'https://api.github.com/repos/gnitoahc/.dotfiles',
     },
     {
+      title: 'LeetCode',
+      content:
+        'My solutions to LeetCode problems, currently hosting on <a href="https://leet.chaoting.xyz/">leet.chaoting.xyz</a> powered by Gitbook.',
+      type: 'GitHub',
+      url: 'https://github.com/gnitoahc/leetcode',
+      api: 'https://api.github.com/repos/gnitoahc/leetcode',
+    },
+    {
       title: 'mermaid-gpt',
       content:
         'An innovative approach to the creation of information graphics, where the accuracy of content and aesthetic appeal are of paramount importance.',
