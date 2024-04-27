@@ -39,7 +39,9 @@ export default function SingleCard(prop: Props) {
         <CardDescription>{prop.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        {prop.content}
+        <div className="my-2 line-clamp-2 min-h-24 hover:line-clamp-none">
+          {prop.content}
+        </div>
         <div className="flex flex-wrap">
           {prop.topics &&
             prop.topics.map((t: any, idx: any) => {
