@@ -61,6 +61,14 @@ export const getProjects = (): ProjectType[] => {
       languages: ['TypeScript', 'Go'],
     },
     {
+      title: 'DigitalAnnealer',
+      content:
+        'A digital annealer built with C++. Support traditional simulated annealing and simulated quantum annealing. Please refer to the README for more details.',
+      type: 'GitHub',
+      url: 'https://github.com/gnitoahc/digitalannealer',
+      api: 'https://api.github.com/repos/gnitoahc/digitalannealer',
+    },
+    {
       title: '.dotfiles',
       content:
         'My personal dotfiles, including configurations for neovim, fish shell, powershell, tmux, etc.',
