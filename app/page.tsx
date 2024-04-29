@@ -4,19 +4,19 @@ import Image from 'next/image'
 
 function Card() {
   return (
-    <div className="flex flex-col h-full text-white p-8 justify-around">
-      <section className="flex flex-col lg:flex-row justify-center items-center gap-6">
+    <div className="flex flex-col h-full text-white p-4 md:p-8 justify-around">
+      <section className="flex flex-row justify-center items-center gap-6">
         <Image
           src="/me.jpg"
           alt="me"
           width={150}
           height={150}
           priority={true}
-          className="rounded-full h-25 w-25"
+          className="rounded-full h-16 w-16 md:h-32 md:w-32"
         />
         <p className="text-2xl lg:text-4xl">Tim Chen</p>
       </section>
-      <section className="flex flex-col items-end">
+      <section className="hidden md:flex flex-col items-end">
         <p className="text-xl sm:text-2xl lg:text-3xl">
           National ChengChi University
         </p>
@@ -34,7 +34,7 @@ export default function Home() {
           <Card />
         </div>
 
-        <div className="h-[10%]" />
+        <div className="h-[25%] md:h-[10%]" />
 
         <section className="flex flex-col justify-center gap-4 text-white items-center top-[50%] md:flex-row">
           <Link
