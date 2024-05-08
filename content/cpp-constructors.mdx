@@ -1,0 +1,180 @@
+---
+title: C++ Move Constructor
+date: 2024-05-08
+summary: Introduction to move constructor in C++ and a brief description of all four kinds of constructors.
+---
+
+# C++ Constructors
+
+In the previous blog post, I've talked about the L-Values & R-Values of C++.
+Now, let's explore the more advanced concepts like L-Value references, R-Value references and move constructor.
+
+## L-Value Reference
+
+A L-value reference, denoted by `&`, is a reference that can bind to existing objects, typically L-values.
+
+- L-Value references can be used to alias an existing object.
+- They can also be used to implement pass-by-reference semantics.
+
+For example:
+
+```cpp
+void swap(int& x, int& y) {
+    int tmp = x;
+    x = y;
+    y = tmp;
+}
+```
+
+## R-Value Reference
+
+In contrast, a R-Value reference, denoted by `&&`, is a reference that can bind to temporary objects, typically R-values.
+R-value references play a crucial role in enabling move semantics, allowing for the efficient transfer of resources from temporary objects to newly constructed ones.
+
+> Temporary objects: An unnamed object created by the compiler to store a temporary value.
+
+For example:
+
+```cpp
+void printRefValue(int&& x) {
+    cout << x << endl;
+}
+
+int main(void) {
+    printRefValue(100);
+    return 0;
+}
+```
+
+## Move Constructor
+
+Move constructor are special member functions that facilitate the efficient transfer of resources from temporary objects (typically R-values) to newly constructed objects.
+
+### Syntax
+
+```cpp
+class MyClass {
+  public:
+    MyClass(MyClass&& m) noexcept { /* Transfer resources from m to this */ }
+}
+```
+
+### Characteristics
+
+- Efficient Resource Transfer: The primary purpose of a move constructor is to transfer resources (such as dynamically allocated memory, file handles, or other costly-to-copy resources) from the source object to the newly constructed object. This transfer typically involves pointer swaps or other lightweight operations, avoiding expensive deep copying.
+- Declared as noexcept: Move constructors are often declared as noexcept, indicating that they do not throw exceptions. This is important for certain optimizations and guarantees provided by the C++ language and standard library.
+- Automatically Generated: If a class does not explicitly define a move constructor, the compiler will generate one automatically under certain conditions.
+
+### Use Cases
+
+First of all, it optimizes the performance, especially when dealing with large objects or resource-heavy operations.
+By efficiently transferring resources instead of copying them, move constructors can significantly reduce memory usage and improve execution speed.
+
+Secondly, Many standard library containers and algorithms in C++ take advantage of move semantics to optimize memory management and performance.
+Using move constructors allows you to take advantage of these optimizations when working with containers like `std::vector`, `std::string` or `std::unique_ptr`.
+
+For example:
+
+```cpp
+class MyClass {
+    int *data;          // Pointer to int
+    MyClass(int v) {    // Constructor
+        data = new int;
+        *data = v;
+    }
+    MyClass(MyClass&& other) noexcept { // Move Constructor
+        data = other.data;
+        other.data = nullptr;
+    }
+    ~MyClass() { delete data; }     // Destructor
+};
+
+int main(void) {
+    MyClass myclass(5);
+    MyClass newclass(std::move(myclass));
+
+    std::cout << "newclass.data = " << *newclass.data << std::endl;
+    return 0;
+}
+```
+
+### Advanced Usage
+
+Consider the following example:
+
+```cpp
+class Obj {
+  public:
+    Obj() {
+        // Constructor logic (e.g. allocate resources)
+        std::cout << "Constructing Obj" << std::endl;
+    }
+    Obj(Obj&& other) noexcept {
+        // Move constructor logic to transfer resources efficiently
+        std::cout << "Move constructor invoked" << std::endl;
+        // Transfer resources from 'other' to 'this' (e.g., pointer swaps)
+    }
+    // Other member functions ...
+};
+
+int main () {
+    std::vector<Obj> vec;
+
+    // Inserting Obj into the vector may invoke move constructor
+    vec.push_back(Obj()); // Move constructor is potentially invoked
+    return 0;
+}
+```
+
+Expected output:
+
+```txt
+Constructing Obj
+Move constructor invoked
+```
+
+Explanation:
+The default constructor is called first when the temporary object is created.
+Then, the move constructor is invoked when the temporary object is moved into the vector.
+
+## Other Constructor in C++
+
+1. Default constructor
+
+   ```cpp
+   class ClassName {
+     public:
+       ClassName() { /* Body of constructor */ }
+   }
+   ```
+
+   A constructor that doesn’t take any argument.
+
+2. Parameterized Constructor in C++
+
+   ```cpp
+   class ClassName {
+     public:
+       ClassName(params...) { /* Body logic */ }
+   }
+   ```
+
+   A constructor that accepts parameters.
+
+3. Copy constructor
+
+   ```cpp
+   class ClassName {
+     public:
+       ClassName(ClassName& className) { /* Body logic */ }
+   }
+   ```
+
+   A constructor that initializes an object using another object of the same class.
+
+## Conclusion
+
+Understanding the intricacies of move constructors in C++ is essential for optimizing performance, managing resources efficiently, and writing expressive and robust code.
+So, try move constructor in your next C++ project and propel your code towards new heights of speed, elegance, and effectiveness.
+
+Happy coding !!!
