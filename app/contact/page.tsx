@@ -2,6 +2,7 @@
 import React from 'react'
 import DetailPage from '../components/DetailPage'
 import emailjs from '@emailjs/browser'
+import { SendHorizonal } from 'lucide-react'
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_SERVICE_ID
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_TEMPLATE_ID
@@ -13,7 +14,7 @@ async function sendMail(textMessage: string) {
     return
   }
   const promptValue = window.prompt(
-    'Do you want to leave your email ? (or empty to continue)'
+    'Leave your mail to get reply. (empty to continue)'
   )
 
   if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
@@ -90,7 +91,7 @@ export default function Home() {
                 setTextMessage('')
               }}
             >
-              {'>'}
+              <SendHorizonal className="w-4 h-4" />
             </button>
           </div>
         </section>
