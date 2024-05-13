@@ -8,12 +8,8 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import Link from 'next/link'
-import { ExternalLinkIcon } from '@radix-ui/react-icons'
+import { ExternalLinkIcon } from 'lucide-react'
 import { getColor } from './projects'
-// import type { ProjectType } from './projects'
-// import { serialize } from 'next-mdx-remote/serialize'
-// import { MDXRemote } from 'next-mdx-remote'
-// import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 type Props = {
   title: string
@@ -33,7 +29,7 @@ export default function SingleCard(prop: Props) {
           <Link href={prop.url} className="flex flex-row items-center">
             {prop.title}
             &nbsp;
-            <ExternalLinkIcon />
+            <ExternalLinkIcon className="h-4 w-4" />
           </Link>
         </CardTitle>
         <CardDescription>{prop.description}</CardDescription>

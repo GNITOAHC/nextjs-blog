@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { format, parseISO } from 'date-fns'
 import type { Post } from 'blog'
 import React from 'react'
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 function PostCard({ post }: { post: Post }) {
@@ -79,7 +79,7 @@ export default function Home() {
           Welcome to my blog
         </h1>
         <Button variant="ghost" size="icon" onClick={() => toggle()}>
-          <MagnifyingGlassIcon />
+          <Search className="w-4 h-4" />
         </Button>
         {showInput && (
           <input
