@@ -2,7 +2,6 @@
 const nextConfig = {
   // Configure `pageExtensions`` to include MDX files
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  transpilePackages: ['next-mdx-remote'],
   // Custom webpack configuration is detected. ( warning message )
   // experimental: {
   //   webpackBuildWorker: true,
