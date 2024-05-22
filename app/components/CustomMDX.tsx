@@ -3,8 +3,11 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github-dark.css'
 import Image from 'next/image'
+let parse = require('ascii-math')
+let hljsCurl = require('highlightjs-curl')
 
 function Code({ children, ...props }: any) {
+  hljs.registerLanguage('curl', hljsCurl)
   const lang = props.className?.replace('language-', '')
 
   if (!props.className) return <code>{children}</code>
@@ -77,6 +80,16 @@ const components = {
     )
   },
   Table: Table,
+  Math: (props: any) => {
+    const str = parse(props.children).toString()
+    return (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: str,
+        }}
+      />
+    )
+  },
 }
 
 export default async function CustomMDX(props: {
