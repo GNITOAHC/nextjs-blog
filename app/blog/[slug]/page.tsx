@@ -28,7 +28,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <article className="mx-auto max-w-fit py-8 h-full overflow-y-scroll overflow-x-scroll font-sans prose prose-invert">
+    <article className="mx-auto max-w-fit sm:max-w-[70%] py-8 h-full overflow-y-scroll overflow-x-scroll font-sans prose prose-invert">
       <div className="mb-8 text-center">
         <time
           dateTime={post.metadata.lastEdit ?? post.metadata.date}
