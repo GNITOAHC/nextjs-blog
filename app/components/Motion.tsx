@@ -48,7 +48,7 @@ export default function Motion({ children }: { children: React.ReactNode }) {
   }, [pathname])
 
   return (
-    <div className="overflow-x-clip overflow-y-hidden relative h-screen font-mono">
+    <div className="overflow-x-clip overflow-y-hidden relative h-[100dvh] font-mono">
       <div
         id="bgblue1"
         style={{
