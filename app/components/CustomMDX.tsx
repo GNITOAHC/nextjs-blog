@@ -83,7 +83,22 @@ const components = {
   Math: (props: any) => {
     const str = parse(props.children).toString()
     return (
-      <div
+      <>
+        <br />
+        <span
+          className="text-center block"
+          dangerouslySetInnerHTML={{
+            __html: str,
+          }}
+        />
+        <br />
+      </>
+    )
+  },
+  Inline: (props: any) => {
+    const str = parse(props.children).toString()
+    return (
+      <span
         dangerouslySetInnerHTML={{
           __html: str,
         }}
