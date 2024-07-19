@@ -1,5 +1,6 @@
 import React from 'react'
-import { MDXRemote } from 'next-mdx-remote/rsc'
+import * as runtime from 'react/jsx-runtime'
+import { evaluate, type EvaluateOptions } from '@mdx-js/mdx'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github-dark.css'
 import Image from 'next/image'
@@ -115,10 +116,12 @@ export default async function CustomMDX(props: {
   source: string
   components?: any
 }) {
+  // Run the compiled code
+  const { default: MDXContent } = await evaluate(props.source, {
+    ...(runtime as EvaluateOptions),
+  })
+
   return (
-    <MDXRemote
-      source={props.source}
-      components={{ ...components, ...(props.components || {}) }}
-    />
+    <MDXContent components={{ ...components, ...(props.components || {}) }} />
   )
 }
