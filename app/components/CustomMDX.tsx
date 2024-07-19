@@ -59,13 +59,17 @@ function Table({ data }: { data: TableData }) {
 const components = {
   code: Code,
   Image: (props: any) => (
-    <Image
-      src={props.src}
-      alt={props.alt}
-      height={props.height ?? 200}
-      width={props.width ?? 200}
-      className={props.className}
-    />
+    <div style={{ position: 'relative', height: props.height }}>
+      <Image
+        src={props.src}
+        alt={props.alt}
+        fill
+        style={{
+          objectFit: 'contain', // cover, contain, none
+        }}
+        className={`p-0 m-0 ${props.className ?? ''}`}
+      />
+    </div>
   ),
   a: ({ children, href }: any) => {
     return (
