@@ -48,12 +48,14 @@ function Table({ data }: { data: TableData }) {
   ))
 
   return (
-    <table>
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <div className="w-full overflow-y-scroll">
+      <table className="w-full">
+        <thead>
+          <tr>{headers}</tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
   )
 }
 
