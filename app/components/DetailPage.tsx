@@ -13,7 +13,7 @@ export default function DetailPage({
   className?: string
 }) {
   return (
-    <main className="p-5 h-full">
+    <main className="p-2 h-full">
       <div className="h-full w-full rounded-3xl backdrop-blur-3xl overflow-visible">
         <h1 className="m-0 p-0 absolute -right-7 -top-10 text-9xl text-slate-300 z-0">
           {pageName}

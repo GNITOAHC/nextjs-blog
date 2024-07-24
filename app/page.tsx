@@ -28,7 +28,7 @@ function Card() {
 
 export default function Home() {
   return (
-    <main className="p-5 h-full">
+    <main className="p-2 h-full">
       <div className="glass-background">
         <div className="mx-[10%] mt-[5%] w-[80%] md:w-[50%] h-min-[50%] max-h-fit bg-white/10 rounded-3xl border-2 border-indigo-50 backdrop-blur">
           <Card />
