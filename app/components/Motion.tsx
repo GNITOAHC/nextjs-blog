@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import { usePathname } from 'next/navigation'
-import './motion.css'
 
 export default function Motion({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -62,7 +61,7 @@ export default function Motion({ children }: { children: React.ReactNode }) {
           borderRadius: 9999,
           zIndex: -1,
         }}
-        className="absolute -top-[5%] -left-[10%] max-w-[100vw]"
+        className="absolute -top-[5%] -left-[10%] ease-in-out duration-500"
       />
 
       <div
@@ -77,7 +76,7 @@ export default function Motion({ children }: { children: React.ReactNode }) {
           boxShadow: '0px 10px 180px #E1CDFA',
           borderRadius: 9999,
         }}
-        className={'absolute -top-[150%] -right-[150%]'}
+        className="absolute -top-[150%] -right-[150%] ease-in-out duration-500"
       />
 
       <div
@@ -92,7 +91,7 @@ export default function Motion({ children }: { children: React.ReactNode }) {
           boxShadow: '0px 10px 180px #E1CDFA',
           borderRadius: 9999,
         }}
-        className="absolute -top-[150%] -right-[150%]"
+        className="absolute -top-[150%] -right-[150%] ease-in-out duration-500"
       />
 
       {children}
