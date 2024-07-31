@@ -1,68 +1,30 @@
 import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-
-function Card() {
-  return (
-    <div className="flex flex-col h-full text-white p-4 md:p-8 justify-around">
-      <section className="flex flex-row justify-center items-center gap-6">
-        <Image
-          src="/me.jpg"
-          alt="me"
-          width={150}
-          height={150}
-          priority={true}
-          className="rounded-full h-16 w-16 md:h-32 md:w-32"
-        />
-        <p className="text-2xl lg:text-4xl">Tim Chen</p>
-      </section>
-      <section className="hidden md:flex flex-col items-end">
-        <p className="text-xl sm:text-2xl lg:text-3xl">
-          National ChengChi University
-        </p>
-        <p className="text-xl sm:text-2xl lg:text-3xl">Computer Science</p>
-      </section>
-    </div>
-  )
-}
+import { Linkedin, Github, AtSign } from 'lucide-react'
 
 export default function Home() {
   return (
-    <main className="p-2 h-full">
-      <div className="glass-background">
-        <div className="mx-[10%] mt-[5%] w-[80%] md:w-[50%] h-min-[50%] max-h-fit bg-white/10 rounded-3xl border-2 border-indigo-50 backdrop-blur">
-          <Card />
-        </div>
-
-        <div className="h-[25%] md:h-[10%]" />
-
-        <section className="flex flex-col justify-center gap-4 text-white items-center top-[50%] md:flex-row">
-          <Link
-            href="/about"
-            className="homepage-links bg-gradient-to-bl from-[#178F47] to-[#DFDB77]"
-          >
-            ABOUT ME
-          </Link>
-          <Link
-            href="/projects"
-            className="homepage-links bg-gradient-to-b from-[#379CF8] to-[#FF97CF]"
-          >
-            PROJECTS
-          </Link>
-          <Link
-            href="/blog"
-            className="homepage-links bg-gradient-to-r from-[#F47E11] to-[#F42424]"
-          >
-            BLOG
-          </Link>
-          <Link
-            href="/contact"
-            className="homepage-links bg-gradient-to-bl from-[#59847E] to-[#ADD8F7]"
-          >
-            CONTACT ME
-          </Link>
-        </section>
+    <div className="flex flex-col justify-center items-center h-full w-full pb-8 pt-16">
+      <h1 className="text-5xl">Chaoting</h1>
+      <div className="flex mb-5 space-x-3">
+        <a href="mailto:chaotingchen10@gmail.com">
+          <AtSign />
+        </a>
+        <a href="https://github.com/gnitoahc">
+          <Github />
+        </a>
+        <a href="https://www.linkedin.com/in/chaoting-chen">
+          <Linkedin />
+        </a>
       </div>
-    </main>
+      <p className="w-full justify-start my-5">
+        <img src="https://readme-typing-svg.herokuapp.com/?lines=Welcome+to+chaoting.xyz!&center=true&width=360&height=30&color=0a173b" />
+      </p>
+      <p>
+        I’m a 20-year-old computer science student passionate about technology,
+        programming, and innovation. Currently, I’m based in Taipei/Taiwan,
+        where I’m pursuing my degree and exploring the vast world of software
+        development.
+      </p>
+    </div>
   )
 }
