@@ -3,7 +3,6 @@ import * as runtime from 'react/jsx-runtime'
 import { evaluate, type EvaluateOptions } from '@mdx-js/mdx'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github-dark.css'
-import Image from 'next/image'
 let parse = require('ascii-math')
 let hljsCurl = require('highlightjs-curl')
 
@@ -61,19 +60,6 @@ function Table({ data }: { data: TableData }) {
 
 const components = {
   code: Code,
-  Image: (props: any) => (
-    <div style={{ position: 'relative', height: props.height }}>
-      <Image
-        src={props.src}
-        alt={props.alt}
-        fill
-        style={{
-          objectFit: 'contain', // cover, contain, none
-        }}
-        className={`p-0 m-0 ${props.className ?? ''}`}
-      />
-    </div>
-  ),
   a: ({ children, href }: any) => {
     return (
       <a
@@ -84,6 +70,18 @@ const components = {
       >
         {children}
       </a>
+    )
+  },
+  img: (props: any) => {
+    return (
+      <span className="w-full flex justify-center">
+        <img
+          src={props.src}
+          alt={props.alt}
+          title={props.title}
+          className="max-w-full md:max-w-[80%] rounded"
+        />
+      </span>
     )
   },
   Table: Table,
