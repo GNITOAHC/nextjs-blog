@@ -29,7 +29,7 @@ function NavItem({
 
 export function Header() {
   return (
-    <div className="px-0 py-1 m-0 w-full flex items-center justify-between md:justify-start">
+    <div className="px-0 py-1 m-0 mb-4 w-full flex items-center justify-between md:justify-start">
       <div className="w-full flex flex-1 items-center justify-between space-x-3">
         <nav className="flex space-x-3">
           <a

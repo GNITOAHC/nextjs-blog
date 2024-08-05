@@ -1,7 +1,7 @@
 'use client'
-
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 
 export default function DetailPage({
   pageName,
@@ -30,4 +30,26 @@ export default function DetailPage({
       </div>
     </main>
   )
+}
+
+export function CurrentPrefix() {
+  const pathname = usePathname()
+  if (pathname === '/') {
+    return <></>
+  }
+
+  let display = ''
+  switch (pathname.split('/')[1]) {
+    case 'posts':
+      display = 'Posts'
+      break
+    case 'resume':
+      display = 'Resume'
+      break
+    case 'projects':
+      display = 'Projects'
+      break
+  }
+
+  return <>{display}</>
 }

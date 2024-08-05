@@ -1,5 +1,6 @@
 import React from 'react'
 import { Linkedin, Github, AtSign } from 'lucide-react'
+import { ThemeComp } from '@/app/components/ThemeComp'
 
 export default function Home() {
   return (
@@ -17,7 +18,12 @@ export default function Home() {
         </a>
       </div>
       <p className="w-full justify-start my-5">
-        <img src="https://readme-typing-svg.herokuapp.com/?lines=Welcome+to+chaoting.xyz!&center=true&width=360&height=30&color=0a173b" />
+        <ThemeComp theme="light">
+          <img src="https://readme-typing-svg.herokuapp.com/?lines=Welcome+to+chaoting.xyz!&center=true&width=360&height=30&color=0a173b" />
+        </ThemeComp>
+        <ThemeComp theme="dark">
+          <img src="https://readme-typing-svg.herokuapp.com/?lines=Welcome+to+chaoting.xyz!&center=true&width=360&height=30" />
+        </ThemeComp>
       </p>
       <p>
         I’m a 20-year-old computer science student passionate about technology,
