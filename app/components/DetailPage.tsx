@@ -43,8 +43,8 @@ export function CurrentPrefix() {
     case 'posts':
       display = 'Posts'
       break
-    case 'resume':
-      display = 'Resume'
+    case 'about':
+      display = 'About'
       break
     case 'projects':
       display = 'Projects'
