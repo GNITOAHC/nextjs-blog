@@ -1,25 +1,49 @@
 import React from 'react'
-import DetailPage from '../components/DetailPage'
-import CustomMDX from '@/app/components/CustomMDX'
-import { aboutmeContent } from './data'
+import CustomMDX from '../components/CustomMDX'
+// prettier-ignore
+// import {Timeline, TimelineItem, TimelineConnector, TimelineHeader, TimelineContent, TimelineDescription, TimelineTitle, TimelineTime, TimelineIcon} from '@/components/ui/Timeline'
 
-export default function Home() {
-  const content = aboutmeContent()
+/*
+ * _e.g._: export const data = [[ '2023-01-01', 'Title', 'Description' ], [ '2023-01-02', 'Title', 'Description' ]]
+ * <TimelineComp data={{ list: data }} />
+ */
+// const TimelineComp = ({ data }: { data: { list: string[][] } }) => {
+//   return (
+//     <>
+//       <br />
+//       <Timeline className="not-prose">
+//         {data.list.map((item, idx) => {
+//           return (
+//             <TimelineItem key={idx}>
+//               {idx + 1 != data.list.length && <TimelineConnector />}
+//               <TimelineHeader>
+//                 <TimelineTime>{item[0]}</TimelineTime>
+//                 <TimelineIcon />
+//                 <TimelineTitle>{item[1]}</TimelineTitle>
+//               </TimelineHeader>
+//               <TimelineContent>
+//                 <TimelineDescription>{item[2]}</TimelineDescription>
+//               </TimelineContent>
+//             </TimelineItem>
+//           )
+//         })}
+//       </Timeline>
+//     </>
+//   )
+// }
+
+export default async function Page() {
+  const data = await fetch(
+    'https://raw.githubusercontent.com/GNITOAHC/GNITOAHC/main/README.md'
+  )
+  const content = await data.text()
 
   return (
-    <DetailPage pageName="ABOUT ME">
-      <div className="flex flex-col justify-center items-center h-full w-full pb-8 pt-16">
-        <div className="h-full min-w-[70%] prose prose-invert overflow-y-scroll">
-          <CustomMDX source={content} />
-        </div>
-        <a
-          href="/resume.pdf"
-          download="resume.pdf"
-          className="underline text-white"
-        >
-          v Download CV here v
-        </a>
+    <div className="flex-1 w-full prose">
+      <div className="w-full flex justify-center">
+        <a href="/resume.pdf" className="underline">v Download CV here v</a>
       </div>
-    </DetailPage>
+      <CustomMDX source={content} />
+    </div>
   )
 }

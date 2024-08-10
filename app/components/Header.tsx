@@ -52,8 +52,8 @@ export function Header() {
             className="bg-gradient-to-bl bg-clip-text hover:text-transparent from-[#379CF8] to-[#FF97CF]"
           />
           <NavItem
-            title="Resume"
-            url="/resume/"
+            title="About"
+            url="/about/"
             className="bg-gradient-to-bl bg-clip-text hover:text-transparent from-[#F47E11] to-[#F42424]"
           />
 
