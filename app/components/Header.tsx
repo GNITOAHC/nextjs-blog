@@ -34,7 +34,7 @@ export function Header() {
         <nav className="flex space-x-3">
           <a
             href="/"
-            className="text-base font-medium text-foreground hover:text-gray-900"
+            className="text-base font-medium text-foreground hover:text-accent"
           >
             ChaoTing
           </a>
