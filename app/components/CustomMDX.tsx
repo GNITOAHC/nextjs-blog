@@ -1,6 +1,9 @@
 import React from 'react'
 import * as runtime from 'react/jsx-runtime'
 import { evaluate, type EvaluateOptions } from '@mdx-js/mdx'
+import remarkGfm from 'remark-gfm' // GitHub Flavored Markdown (tables, strikethrough, etc.)
+import remarkMath from 'remark-math' // Turn $$ into math tag
+import rehypeKatex from 'rehype-katex' // Render math tag
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github-dark.css'
 let parse = require('ascii-math')
@@ -12,7 +15,12 @@ function Code({ children, ...props }: any) {
 
   if (!props.className) return <code>{children}</code>
 
-  const code = hljs.highlight(children, { language: lang }).value
+  let code
+  try {
+    code = hljs.highlight(children, { language: lang }).value
+  } catch (e) {
+    return <code>{children}</code>
+  }
 
   return (
     <code
@@ -119,6 +127,8 @@ export default async function CustomMDX(props: {
   // Run the compiled code
   const { default: MDXContent } = await evaluate(props.source, {
     ...(runtime as EvaluateOptions),
+    remarkPlugins: [remarkGfm, remarkMath],
+    rehypePlugins: [rehypeKatex],
   })
 
   return (

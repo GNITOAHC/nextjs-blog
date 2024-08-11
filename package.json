@@ -23,6 +23,9 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "rehype-katex": "^7.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-math": "^6.0.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
