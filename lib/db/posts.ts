@@ -7,11 +7,12 @@ export type Metadata = {
   date: string
   lastEdit: string
   summary: string
+  tags: string
 }
 export type Post = {
-  metadata: Metadata
-  slug: string
-  content: string
+  metadata: Metadata // Frontmatter data
+  slug: string // File name without extension
+  content: string // MDX content without frontmatter
 }
 
 function getFiles(dir: string, fileType: string) {
@@ -55,6 +56,16 @@ function getMDXData(dir: string): Post[] {
       content,
     } as Post
   })
+}
+
+export function getPostsTags(): string[] {
+  const posts = getPosts()
+  const tags = new Set<string>()
+  posts.forEach((post) => {
+    if (!post.metadata.tags) return
+    post.metadata.tags.split(',').forEach((tag) => tags.add(tag.trim()))
+  })
+  return Array.from(tags)
 }
 
 export function getPosts(): Post[] {

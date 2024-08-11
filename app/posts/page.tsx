@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { cache } from 'react'
 import { Posts } from './Posts'
 import { getPosts } from '@/lib/db/posts'
 import { compareDesc } from '@/lib/utils'
 
+const cachedPosts = cache(() => getPosts())
+
 export default function Home() {
-  const posts = getPosts().sort((a, b) =>
+  const posts = cachedPosts().sort((a, b) =>
     compareDesc(
       new Date(a.metadata.lastEdit ?? a.metadata.date),
       new Date(b.metadata.lastEdit ?? b.metadata.date)
