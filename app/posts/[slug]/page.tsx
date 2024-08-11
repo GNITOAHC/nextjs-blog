@@ -1,8 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { format, parseISO } from 'date-fns'
 import CustomMDX from '@/app/components/CustomMDX'
-import { getBlogPosts } from '@/lib/db/blog'
+import { getPosts } from '@/lib/db/posts'
 import { Metadata } from 'next'
 
 export async function generateMetadata({
@@ -10,7 +9,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }): Promise<Metadata | undefined> {
-  const post = getBlogPosts().find((post) => post.slug === params.slug)
+  const post = getPosts().find((post) => post.slug === params.slug)
 
   if (!post) return
 
@@ -20,28 +19,28 @@ export async function generateMetadata({
   }
 }
 
+import { formatDate } from '@/lib/utils'
 export default function Page({ params }: { params: { slug: string } }) {
-  const post = getBlogPosts().find((post) => post.slug === params.slug)
+  const post = getPosts().find((post) => post.slug === params.slug)
 
   if (!post) {
     notFound()
   }
 
   return (
-    <article className="mx-auto max-w-fit sm:max-w-[70%] py-8 h-full overflow-y-scroll overflow-x-scroll font-sans prose prose-invert">
+    <article className="mx-auto w-full py-8 h-full overflow-y-scroll overflow-x-scroll font-sans">
       <div className="mb-8 text-center">
         <time
           dateTime={post.metadata.lastEdit ?? post.metadata.date}
-          className="mb-1 text-xs text-sky-50"
+          className="mb-1 text-xs"
         >
-          {format(
-            parseISO(post.metadata.lastEdit ?? post.metadata.date),
-            'LLLL d, yyyy'
-          )}
+          {formatDate(post.metadata.lastEdit ?? post.metadata.date)}
         </time>
-        <h1 className="text-3xl font-bold text-white">{post.metadata.title}</h1>
+        <h1 className="text-3xl font-bold">{post.metadata.title}</h1>
       </div>
-      <CustomMDX source={post.content} />
+      <div className="prose">
+        <CustomMDX source={post.content} />
+      </div>
     </article>
   )
 }

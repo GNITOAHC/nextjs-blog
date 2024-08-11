@@ -1,6 +1,18 @@
 import fs from 'fs'
 import path from 'path'
-import type { Metadata, Post } from 'blog'
+// import type { Metadata, Post } from 'blog'
+
+export type Metadata = {
+  title: string
+  date: string
+  lastEdit: string
+  summary: string
+}
+export type Post = {
+  metadata: Metadata
+  slug: string
+  content: string
+}
 
 function getFiles(dir: string, fileType: string) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === fileType)
@@ -45,6 +57,6 @@ function getMDXData(dir: string): Post[] {
   })
 }
 
-export function getBlogPosts(): Post[] {
+export function getPosts(): Post[] {
   return getMDXData(path.join(process.cwd(), 'content'))
 }
