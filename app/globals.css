@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  :root,
+  .dark {
     --background: hsl(222, 84%, 5%);
     --foreground: hsl(210, 40%, 98%);
 
@@ -34,6 +35,38 @@
 
     --radius: 0.5rem;
   }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 40 100% 75%;
+    --primary-foreground: 222.2 84% 4.9%;
+
+    --secondary: 213 39% 45%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 212 40% 91%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
 }
 
 @layer base {
@@ -46,10 +79,63 @@
 }
 
 @layer components {
-  .glass-background {
-    @apply h-full w-full rounded-3xl backdrop-blur-3xl bg-white/30 border-white border-solid border-[1px] overflow-scroll;
+  .prose {
+    h1:not(h1.not-prose, .not-prose h1) {
+      @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+    }
+    h2:not(h2.not-prose, .not-prose h2) {
+      @apply mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mb-2;
+    }
+    h3:not(.not-prose h3, .not-prose h3) {
+      @apply mt-8 scroll-m-20 text-2xl font-semibold tracking-tight;
+    }
+    h4:not(.not-prose h4, .not-prose h4) {
+      @apply scroll-m-20 text-xl font-semibold tracking-tight;
+    }
+    p:not(p.not-prose, .not-prose p) {
+      @apply leading-7 [&:not(:first-child)]:mt-6;
+    }
+    blockquote:not(blockquote.not-prose, .not-prose blockquote) {
+      @apply mt-6 border-l-2 pl-6 italic;
+    }
+    table:not(table.not-prose, .not-prose table) {
+      @apply w-full;
+    }
+    tr:not(tr.not-prose, .not-prose tr) {
+      @apply m-0 border-t p-0 even:bg-muted;
+    }
+    th:not(th.not-prose, .not-prose th) {
+      @apply border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right;
+    }
+    td:not(td.not-prose, .not-prose td) {
+      @apply border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right;
+    }
+    ul:not(ul.not-prose, .not-prose ul) {
+      @apply my-6 ml-6 list-disc [&>li]:mt-2;
+    }
+    ol:not(ol.not-prose, .not-prose ol) {
+      @apply my-6 ml-6 list-decimal [&>li]:mt-2;
+    }
+    pre:not(pre.not-prose, .not-prose pre) {
+      @apply w-full overflow-y-scroll bg-[#1d283a] text-white rounded py-2 px-4 mb-4 mt-6;
+    }
+    /* code { */
+    /*   @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold; */
+    /* } */
   }
-  .homepage-links {
-    @apply text-4xl font-bold transition delay-150 ease-in-out hover:-translate-y-1 hover:scale-110 duration-300 hover:text-transparent bg-clip-text;
-  }
+}
+
+[aria-hidden='true'] {
+  visibility: hidden;
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

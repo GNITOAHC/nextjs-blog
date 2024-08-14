@@ -1,5 +1,4 @@
 import React from 'react'
-import DetailPage from '../components/DetailPage'
 import { getProjects, getApiContent } from './projects'
 import type { ProjectType } from './projects'
 import CustomMDX from '@/app/components/CustomMDX'
@@ -35,7 +34,7 @@ async function GitHubCard({ p, className }: Props) {
 export default async function Home() {
   let projects = getProjects()
   return (
-    <DetailPage pageName="PROJECTS" className="h-full overflow-auto">
+    <>
       <div className="h-1/3 flex items-center">
         <p className="flex justify-center">
           <img
@@ -57,6 +56,6 @@ export default async function Home() {
           )
         })}
       </div>
-    </DetailPage>
+    </>
   )
 }

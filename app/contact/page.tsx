@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import DetailPage from '../components/DetailPage'
 import emailjs from '@emailjs/browser'
 import { SendHorizonal } from 'lucide-react'
 
@@ -38,63 +37,38 @@ async function sendMail(textMessage: string) {
   window.alert('Sended')
 }
 
-function LinkBox({ url, display }: { url: string; display: string }) {
-  return (
-    <div className="border border-gray-200 rounded-md p-3">
-      <a href={url} target="_blank" rel="noopener noreferrer">
-        {display}
-      </a>
-    </div>
-  )
-}
+// function LinkBox({ url, display }: { url: string; display: string }) {
+//   return (
+//     <div className="border border-gray-200 rounded-md p-3">
+//       <a href={url} target="_blank" rel="noopener noreferrer">
+//         {display}
+//       </a>
+//     </div>
+//   )
+// }
 
 export default function Home() {
   const [textMessage, setTextMessage] = React.useState('')
   return (
-    <DetailPage pageName="CONTACT ME">
-      <div className="flex flex-col justify-center items-center h-full relative gap-y-[15%]">
-        <section className="flex flex-col">
-          <div>
-            LinkedIn
-            <LinkBox
-              url={'https://www.linkedin.com/in/chaoting-chen/'}
-              display={'www.linkedin.com/in/chaoting-chen/'}
-            />
-          </div>
-          <div>
-            GitHub
-            <LinkBox
-              url={'https://github.com/gnitoahc'}
-              display={'github.com/gnitoahc'}
-            />
-          </div>
-          <div>
-            Mail
-            <LinkBox
-              url={'mailto:chaotingchen10@gmail.com'}
-              display={'chaotingchen10@gmail.com'}
-            />
-          </div>
-        </section>
-        <section className="flex flex-col md:flex-row w-[70%] max-h-[30%] justify-center items-center">
-          <div className="flex w-full overflow-y-scroll bg-opacity-90 rounded-3xl shadow backdrop-blur-lg justify-between px-4">
-            <textarea
-              /* type="text" */
-              onChange={(event) => setTextMessage(event.target.value)}
-              value={textMessage}
-              placeholder="Email me directly"
-              className="min-w-[97%] max-w-fit h-10 max-h-28 min-h-[2.5rem] bg-transparent p-2"
-            />
-            <button
-              onClick={() => {
-                sendMail(textMessage)
-                setTextMessage('')
-              }}
-            >
-              <SendHorizonal className="w-4 h-4" />
-            </button>
-          </div>
-        </section>
+    <>
+      <div className="h-full w-full flex justify-center items-center">
+        <div className="flex w-full bg-opacity-90 rounded-3xl shadow backdrop-blur-lg justify-between px-4">
+          <textarea
+            /* type="text" */
+            onChange={(event) => setTextMessage(event.target.value)}
+            value={textMessage}
+            placeholder="Email me directly"
+            className="w-[97%] h-36 md:h-24 min-h-[2.5rem] bg-transparent p-2"
+          />
+          <button
+            onClick={() => {
+              sendMail(textMessage)
+              setTextMessage('')
+            }}
+          >
+            <SendHorizonal className="w-4 h-4" />
+          </button>
+        </div>
       </div>
       <style jsx>
         {`
@@ -103,6 +77,6 @@ export default function Home() {
           }
         `}
       </style>
-    </DetailPage>
+    </>
   )
 }
