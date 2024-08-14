@@ -5,13 +5,19 @@ import { Sun, Moon } from 'lucide-react'
 
 export function ThemeIcon({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme()
-  const [isClient, setIsClient] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setIsClient(true)
+    const matchMedia = window.matchMedia('(prefers-color-scheme: dark)')
+    const prefersDarkMode = matchMedia.matches
+
+    if (prefersDarkMode) setTheme('dark')
+    else setTheme('light')
+
+    setMounted(true)
   }, [])
 
-  if (!isClient) {
+  if (!mounted) {
     return null
   }
 
