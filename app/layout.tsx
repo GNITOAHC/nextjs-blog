@@ -10,6 +10,17 @@ import { ThemeProvider } from '@/app/components/providers/ThemeProvider'
 
 import { cn } from '@/lib/utils'
 
+import Script from 'next/script' // For Google Adsense Root Domain Verification
+const GoogleAdsense: React.FC = () => {
+  return (
+    <Script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2003667605915500"
+      crossOrigin="anonymous"
+    />
+  )
+}
+
 /* const inter = Inter({ subsets: ['latin'] }) */
 
 export const metadata: Metadata = {
@@ -75,6 +86,7 @@ export default function RootLayout({
           </ThemeProvider>
         </Motion>
       </body>
+      <GoogleAdsense />
     </html>
   )
 }
