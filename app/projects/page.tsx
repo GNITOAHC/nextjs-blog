@@ -1,7 +1,7 @@
 import React from 'react'
 import { getProjects, getApiContent } from './projects'
 import type { ProjectType } from './projects'
-import CustomMDX from '@/app/components/CustomMDX'
+import { CustomMDX } from '@/app/components/mdx/CustomMDX'
 import StandardCard from './StandardCard'
 import SingleCard from './SingleCard'
 

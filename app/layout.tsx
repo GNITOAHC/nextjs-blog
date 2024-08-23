@@ -59,7 +59,7 @@ function HomePage({ children }: { children: React.ReactNode }) {
         </h1>
         {/* prettier-ignore */}
         <div className={cn(sizeAndAlign, backgroundGradient, border, round, overflow)}>
-          <div className="w-[90%] sm:w-4/6 flex flex-col justify-items-center items-center">
+          <div className="w-[90%] max-w-full md:px-24 lg:px-32 flex flex-col justify-items-center items-center">
             <Header />
             <div className="relative flex flex-col flex-grow w-full">
               {children}

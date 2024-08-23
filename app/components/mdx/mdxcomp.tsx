@@ -1,11 +1,5 @@
 import React from 'react'
-import * as runtime from 'react/jsx-runtime'
-import { evaluate, type EvaluateOptions } from '@mdx-js/mdx'
-import remarkGfm from 'remark-gfm' // GitHub Flavored Markdown (tables, strikethrough, etc.)
-import remarkMath from 'remark-math' // Turn $$ into math tag
-import rehypeKatex from 'rehype-katex' // Render math tag
 import hljs from 'highlight.js'
-import 'highlight.js/styles/github-dark.css'
 let parse = require('ascii-math')
 let hljsCurl = require('highlightjs-curl')
 
@@ -66,7 +60,7 @@ function Table({ data }: { data: TableData }) {
   )
 }
 
-const components = {
+export const components = {
   code: Code,
   a: ({ children, href }: any) => {
     return (
@@ -118,20 +112,4 @@ const components = {
       />
     )
   },
-}
-
-export default async function CustomMDX(props: {
-  source: string
-  components?: any
-}) {
-  // Run the compiled code
-  const { default: MDXContent } = await evaluate(props.source, {
-    ...(runtime as EvaluateOptions),
-    remarkPlugins: [remarkGfm, remarkMath],
-    rehypePlugins: [rehypeKatex],
-  })
-
-  return (
-    <MDXContent components={{ ...components, ...(props.components || {}) }} />
-  )
 }

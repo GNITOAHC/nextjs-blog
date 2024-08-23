@@ -5,7 +5,7 @@ import type { ProjectType } from './projects'
 // import { MDXRemote } from 'next-mdx-remote'
 // import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import SingleCard from './SingleCard'
-import CustomMDX from '../components/CustomMDX'
+import { CustomMDX } from '@/app/components/mdx/CustomMDX'
 
 type Props = {
   p: ProjectType

@@ -1,6 +1,6 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import CustomMDX from '@/app/components/CustomMDX'
+import { CustomMDX, getToc } from '@/app/components/mdx'
 import { getPosts } from '@/lib/db/posts'
 import { Metadata } from 'next'
 
@@ -20,15 +20,19 @@ export async function generateMetadata({
 }
 
 import { formatDate } from '@/lib/utils'
-export default function Page({ params }: { params: { slug: string } }) {
+import { TocComp, DropdownToc } from './Toc'
+
+export default async function Page({ params }: { params: { slug: string } }) {
   const post = getPosts().find((post) => post.slug === params.slug)
 
   if (!post) {
     notFound()
   }
 
+  const toc = await getToc(post.content)
+
   return (
-    <article className="mx-auto w-full py-8 h-full overflow-y-scroll overflow-x-scroll font-sans">
+    <article className="mx-auto w-full py-8 h-full font-sans">
       <div className="mb-8 text-center">
         <time
           dateTime={post.metadata.lastEdit ?? post.metadata.date}
@@ -38,8 +42,16 @@ export default function Page({ params }: { params: { slug: string } }) {
         </time>
         <h1 className="text-3xl font-bold">{post.metadata.title}</h1>
       </div>
-      <div className="prose">
-        <CustomMDX source={post.content} />
+      <div className="prose flex flex-col xl:flex-row-reverse gap-y-8 xl:gap-y-0 gap-x-8">
+        <div className="hidden xl:block">
+          <TocComp toc={toc} className="sticky top-5" />
+        </div>
+        <div className="xl:hidden block w-full">
+          <DropdownToc toc={toc} className="sticky top-5" />
+        </div>
+        <div className="flex-1">
+          <CustomMDX source={post.content} />
+        </div>
       </div>
     </article>
   )
