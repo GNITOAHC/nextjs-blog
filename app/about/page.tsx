@@ -1,5 +1,5 @@
 import React from 'react'
-import CustomMDX from '../components/CustomMDX'
+import { CustomMDX } from '@/app/components/mdx/CustomMDX'
 // prettier-ignore
 // import {Timeline, TimelineItem, TimelineConnector, TimelineHeader, TimelineContent, TimelineDescription, TimelineTitle, TimelineTime, TimelineIcon} from '@/components/ui/Timeline'
 
