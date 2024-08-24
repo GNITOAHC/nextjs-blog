@@ -1,12 +1,4 @@
 import React from 'react'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import Link from 'next/link'
 import { ExternalLinkIcon } from 'lucide-react'
 import { getColor } from './projects'
@@ -23,27 +15,23 @@ type Props = {
 
 export default function SingleCard(prop: Props) {
   return (
-    <Card className={prop.className}>
-      <CardHeader>
-        <CardTitle className="">
-          <Link href={prop.url} className="flex flex-row items-center">
-            {prop.title}
-            &nbsp;
-            <ExternalLinkIcon className="h-4 w-4" />
-          </Link>
-        </CardTitle>
-        <CardDescription>{prop.description}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="my-2 line-clamp-2 min-h-24 hover:line-clamp-none">
-          {prop.content}
-        </div>
+    <article className={prop.className}>
+      <div>
+        <Link href={prop.url} className="flex flex-row items-center">
+          {prop.title}
+          &nbsp;
+          <ExternalLinkIcon className="h-4 w-4" />
+        </Link>
+        {/* <div className="my-2 text-sm text-secondary-foreground">{prop.description}</div> */}
+      </div>
+      <div>
+        <div className="my-2 text-sm">{prop.content}</div>
         <div className="flex flex-wrap">
           {prop.topics &&
             prop.topics.map((t: any, idx: any) => {
               return (
                 <span
-                  className="rounded-lg bg-blue-900 w-max mr-2 p-1 text-xs"
+                  className="rounded-md bg-accent/30 text-accent-foreground w-max mr-2 p-[2px] text-xs"
                   key={idx}
                 >
                   {t}
@@ -51,8 +39,8 @@ export default function SingleCard(prop: Props) {
               )
             })}
         </div>
-      </CardContent>
-      <CardFooter>
+      </div>
+      <div>
         {prop.languages &&
           prop.languages.map((lang, idx) => {
             const langColor = getColor(lang)
@@ -65,7 +53,7 @@ export default function SingleCard(prop: Props) {
               </span>
             )
           })}
-      </CardFooter>
-    </Card>
+      </div>
+    </article>
   )
 }

@@ -36,6 +36,10 @@ export const getColor = (lang: string) => {
       return 'bg-[#f34b7d]'
     case 'ShaderLab':
       return 'bg-[#222c37]'
+    case 'HTML':
+      return 'bg-[#e34c26]'
+    case 'Lua':
+      return 'bg-[#000080]'
   }
 }
 

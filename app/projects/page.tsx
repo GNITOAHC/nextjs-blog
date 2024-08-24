@@ -1,41 +1,13 @@
 import React from 'react'
-import { getProjects, getApiContent } from './projects'
-import type { ProjectType } from './projects'
-import { CustomMDX } from '@/app/components/mdx/CustomMDX'
-import StandardCard from './StandardCard'
-import SingleCard from './SingleCard'
-
-type Props = {
-  p: ProjectType
-  className: string
-}
-
-async function GitHubCard({ p, className }: Props) {
-  const data = await getApiContent(p.api!)
-  const content = (
-    <div className="prose prose-invert">
-      <CustomMDX source={p.content} />
-    </div>
-  )
-
-  return (
-    <SingleCard
-      title={p.title}
-      description={data.description}
-      url={p.url}
-      content={content}
-      languages={[data.language]}
-      topics={data.topics}
-      className={className}
-    />
-  )
-}
+import { getProjects } from './projects'
+import StandardCard from './Card'
 
 export default async function Home() {
   let projects = getProjects()
+  const className: string = 'p2 rouded-md'
   return (
     <>
-      <div className="h-1/3 flex items-center">
+      <div className="flex items-center my-5">
         <p className="flex justify-center">
           <img
             src="https://readme-typing-svg.herokuapp.com/?lines=Welcome+to+my+projects!&center=true&width=360&height=30"
@@ -43,15 +15,18 @@ export default async function Home() {
           />
         </p>
       </div>
-      <div className="flex flex-wrap w-full">
+      <div className="flex flex-col w-full">
         {projects.map((p, idx) => {
           return (
-            <div className="p-4 w-full md:w-1/2" key={idx}>
-              {p.type == 'GitHub' ? (
-                <GitHubCard p={p} className="p2 border rounded-md" />
-              ) : (
-                <StandardCard p={p} className="p2 border rounded-md" />
-              )}
+            <div key={idx}>
+              <div className="p-4 w-full" key={idx}>
+                <StandardCard
+                  p={p}
+                  className={className}
+                  sourceFromGitHub={p.type}
+                />
+              </div>
+              {idx < projects.length - 1 && <hr className="border-gray-800" />}
             </div>
           )
         })}
