@@ -119,6 +119,9 @@
     pre:not(pre.not-prose, .not-prose pre) {
       @apply w-full overflow-y-scroll bg-[#1d283a] text-white rounded py-2 px-4 mb-4 mt-6;
     }
+    a:not(a.not-prose, .not-prose a) {
+      @apply hover:text-sky-200 underline;
+    }
     /* code { */
     /*   @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold; */
     /* } */
