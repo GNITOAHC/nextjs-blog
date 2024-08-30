@@ -43,13 +43,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <h1 className="text-3xl font-bold">{post.metadata.title}</h1>
       </div>
       <div className="prose flex flex-col xl:flex-row-reverse gap-y-8 xl:gap-y-0 gap-x-8">
-        <div className="hidden xl:block">
+        <div className="hidden xl:block w-[20%]">
           <TocComp toc={toc} className="sticky top-5" />
         </div>
         <div className="xl:hidden block w-full">
           <DropdownToc toc={toc} className="sticky top-5" />
         </div>
-        <div className="flex-1">
+        <div className="w-full xl:w-[80%]">
           <CustomMDX source={post.content} />
         </div>
       </div>
