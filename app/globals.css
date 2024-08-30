@@ -130,6 +130,7 @@
 
 [aria-hidden='true'] {
   visibility: hidden;
+  display: none;
 }
 
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
