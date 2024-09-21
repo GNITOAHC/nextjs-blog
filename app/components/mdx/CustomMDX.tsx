@@ -17,6 +17,6 @@ export async function CustomMDX(props: { source: string; components?: any }) {
   })
 
   return (
-    <MDXContent  components={{ ...components, ...(props.components || {}) }} />
+    <MDXContent components={{ ...components, ...(props.components || {}) }} />
   )
 }
