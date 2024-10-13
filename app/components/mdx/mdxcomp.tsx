@@ -61,6 +61,11 @@ function Table({ data }: { data: TableData }) {
 }
 
 export const components = {
+  pre: (props: any) => {
+    return (
+      <pre className="text-sm">{props.children}</pre>
+    )
+  },
   code: Code,
   a: ({ children, href }: any) => {
     return (
