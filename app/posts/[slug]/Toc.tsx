@@ -10,12 +10,29 @@ type TocCompProps = {
 }
 
 const children = (node: Toc) => {
+  const scrolltag = (id: string | undefined) => {
+    if (!id) return
+
+    const entry = document.getElementById('post-scroll-entry')
+    if (!entry) return
+
+    const target = document.getElementById(id)
+    if (!target) return
+
+    const offset = target.offsetTop - 20
+    entry.scroll({ top: offset, left: 0, behavior: 'smooth' })
+  }
+
   return (
     <ul>
       {node.map((child) => {
         return (
           <li key={child.id} className="pl-4">
-            <a href={`#${child.id}`} className="hover:text-sky-200">
+            <a
+              // href={`#${child.id}`}
+              onClick={() => scrolltag(child.id)}
+              className="hover:text-sky-200"
+            >
               {child.value}
             </a>
             {child.children && children(child.children)}

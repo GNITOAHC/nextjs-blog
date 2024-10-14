@@ -58,7 +58,7 @@ function HomePage({ children }: { children: React.ReactNode }) {
           <CurrentPrefix />
         </h1>
         {/* prettier-ignore */}
-        <div className={cn(sizeAndAlign, backgroundGradient, border, round, overflow)}>
+        <div className={cn(sizeAndAlign, backgroundGradient, border, round, overflow)} id="post-scroll-entry">
           <div className="w-[90%] max-w-full md:px-24 lg:px-32 flex flex-col justify-items-center items-center">
             <Header />
             <div className="relative flex flex-col flex-grow w-full">
