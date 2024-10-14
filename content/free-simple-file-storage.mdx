@@ -1,0 +1,386 @@
+---
+title: Free File Storage Approach
+date: 2024-10-13
+summary: A new approach to file storage that is completely free.
+tags: Rust, Backend
+---
+
+# Free File Storage Approach
+
+最近正在思考購買 Amazon S3 服務，不過考慮到 S3 的成本和我的要求真的不多，我認為應該有更低成本的解決方案。
+
+source code: [github.com/gnitoahc/file-bot](https://github.com/GNITOAHC/file-bot/tree/8da244b734b6e9cd736b17aebd7b8194ef3a307d)
+
+## Discord Approach
+
+Discord 作為一個免費社交平台，提供了一個很可靠的檔案傳輸功能，並且包含幾項特性：
+
+1.  上傳後的資料會提供一個網址，可以從任何地點訪問
+2.  網址不容易被猜測
+3.  上傳總量沒有限制，並且資料不會過期或被自動刪除
+4.  完全免費
+
+Discord 畢竟不是一個專門的雲端硬碟，所以還是有些限制，例如單一檔案大小上限等等。不過對於簡單的檔案傳輸或是一些 demo，已經很夠用了。
+
+## Shuttle Approach
+
+[Shuttle](https://www.shuttle.dev/) 是一個基於 Rust 的開源專案（Rust 雲端託管平台），提供每個人一定的免費額度可以自行部署服務。包括以下優勢：
+
+1.  開源
+2.  部署容易，只要 `shuttle deploy` 即可
+3.  不用擔心維護問題
+4.  完全免費
+
+## Overall Approach
+
+現在我們可以綜合上述兩個方法，模擬一個免費的 Amazon S3 服務。首先，建立一個 Discord Bot 並夾到伺服器，透過 Shuttle 部署一個簡單的 API 服務。每次有檔案上傳到 Shuttle 的服務時，透過 Discord Bot 上傳到伺服器，並回傳檔案網址。
+
+範例：
+
+```bash
+curl -X POST -F 'file=@./file.png' http://127.0.0.1:8000/discord
+```
+
+回傳：
+
+```bash
+{
+    "status": "ok",
+    "url": "https://cdn.discordapp.com/attachments/..."
+}
+```
+
+## Implementation
+
+### Create a new Discord Bot
+
+首先，到 [Discord Developer Portal](https://discord.com/developers/applications) 建立一個新的應用程式，並建立一個 Bot。進入 Bot 頁面後，選擇 OAuth2 製作 Bot Token，並將 Bot 加到伺服器。
+
+![oauth2](/images/free-simple-file-storage/oauth2.png)
+
+### Create a Shuttle Service
+
+用 Shuttle 官方網站的 Sample 建立一個 Axum 服務，並撰寫 API 來處理檔案上傳。簡單來說，製作一個可以 `POST` 的路由，每當檔案被 POST 上來時，將檔案上傳到 Discord 伺服器，並回傳網址。
+
+```rust
+let router = Router::new()
+    .route("/discord", post(discord::discord::send_file));
+```
+
+當然，有需多東西要 handle，我們一步一步來。先用 `shuttle init --template axum` 建立新專案。這個 command 會在 project root 建立一個 `src/main.rs` 和 `Cargo.toml`。
+
+先看看我們的最終的專案架構：
+
+```
+project-name
+├── Cargo.lock
+├── Cargo.toml
+├── .gitignore
+├── Secrets.toml
+└── src
+   ├── discord
+   │  ├── discord.rs
+   │  └── mod.rs
+   └── main.rs
+```
+
+`Cargo.lock` 會自動產生，不用擔心。目前，先將需要的 dependencies 加上。
+
+```diff
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -1,10 +1,12 @@
+ [package]
+ name = "file-bot"
+ version = "0.1.0"
+ edition = "2021"
+
+ [dependencies]
+-axum = "0.7.4"
++reqwest = { version = "0.12.8", features = ["multipart", "json"] }
++serde_json = "1.0.128"
++axum = { version = "0.7.4", features = ["multipart"] }
+ shuttle-axum = "0.48.0"
+ shuttle-runtime = "0.48.0"
+ tokio = "1.28.2"
+```
+
+接著再把 Discord API 的部分實作。為了避免我們的 API 外流，最好把 Token 都放進 `Secrets.toml` 中。
+
+```toml
+DISCORD_BOT_TOKEN = "your bot token"
+DISCORD_GUILD_ID= "your server's guild id"
+CHANNEL_NAME= "db-storage"
+```
+
+### Main file
+
+首先，我們要將 API 加入到主要的檔案，讓使用者可以從外面呼叫到這個 function。在 `main.rs` 中加入以下內容：
+
+```rust
+use axum::{
+    routing::{get, post},
+    Router,
+};
+use shuttle_runtime::SecretStore;
+```
+
+這會引入我們需要的套件。接著加入我們的 `AppState`，還有引入我們自定義的 discord module：
+
+```rust
+mod discord;
+
+#[derive(Clone)]
+struct AppState {
+    discord_info: discord::DiscordInfo,
+}
+```
+
+其中，`mod discord` 會使用我們稍後定義在 `src/discord` 資料夾以下的 module。`AppState` 則是一個可以在整個專案中共享的資源，這裡我們放了 Discord 的資訊，稍後會在 `src/discord/mod.rs` 定義。
+
+`hello_world` 是一個簡單的 API，用來測試是否正常運作。
+
+```rust
+async fn hello_world() -> &'static str {
+    "Hello, world!"
+}
+```
+
+最後，我們定義 main function，這是整個程式的進入點。
+
+```rust
+#[shuttle_runtime::main]
+async fn main(#[shuttle_runtime::Secrets] secrets: SecretStore) -> shuttle_axum::ShuttleAxum {
+    let info = discord::DiscordInfo {
+        bot_api_key: secrets.get("DISCORD_BOT_TOKEN").unwrap(),
+        guild_id: secrets.get("DISCORD_GUILD_ID").unwrap(),
+        channel_name: secrets.get("CHANNEL_NAME").unwrap(),
+    };
+
+    let state = AppState { discord_info: info };
+
+    let router = Router::new()
+        .route("/", get(hello_world))
+        .route("/discord", post(discord::discord::send_file))
+        .with_state(state);
+
+    Ok(router.into())
+}
+```
+
+### Discord Usage
+
+現在，我們先實作 Discord API 的部分，在 `src` 下建立 `discord` 資料夾，加入 `mod.rs` 和 `discord.rs`。在 `mod.rs` 加入以下內容：
+
+```rust
+// src/discord/mod.rs
+pub mod discord;
+
+#[derive(Clone, Debug)]
+pub struct DiscordInfo {
+    pub bot_api_key: String,
+    pub guild_id: String,
+    pub channel_name: String,
+}
+```
+
+這定義了 Discord Bot 的重要資訊，讓我們可以在其他地方使用。接著在 `discord.rs` 中先定義幾個 function。
+
+```rust
+// src/discord/discord.rs
+const DISCORD_CHANNEL_API: &str = "https://discord.com/api/v10/channels/{channel_id}/messages";
+const DISCORD_GUILD_API: &str = "https://discord.com/api/v10/guilds/{guild_id}/channels";
+```
+
+**`get_channel_id` 尋找特定名字 channel 的 ID**
+
+1.  定義回傳 `Result<String, Box<dyn std::error::Error>>`，如果找不到 channel，回傳 `Err`
+
+    ```rust
+    // src/discord/discord.rs
+    async fn get_channel_id(
+        bot_api_key: &str,
+        guild_id: &str,
+        channel_name: &str,
+    ) -> Result<String, Box<dyn std::error::Error>> {
+        // ...
+    }
+    ```
+
+2.  使用 `reqwest` 套件來發送 HTTP request，取得伺服器的所有頻道
+
+    ```rust
+    let url = DISCORD_GUILD_API.replace("{guild_id}", &guild_id);
+    let client = reqwest::Client::new();
+
+    // Create headers
+    let mut headers = reqwest::header::HeaderMap::new();
+    headers.insert(
+        "Authorization",
+        format!("Bot {bot_api_key}", bot_api_key = bot_api_key)
+            .parse()
+            .unwrap(),
+    );
+    headers.insert("Content-Type", "application/json".parse().unwrap());
+    let response = client.get(&url).headers(headers).send().await?;
+    ```
+
+3.  尋找我們要的 channel ID
+
+    ```rust
+    let channels: Vec<serde_json::Value> = response.json().await?;
+    for channel in channels {
+        let cur_name = channel["name"].as_str().unwrap();
+        if cur_name == channel_name {
+            return Ok(channel["id"].as_str().unwrap().to_string());
+        }
+    }
+    Err("Channel not found".into())
+    ```
+
+**`upload` 上傳特定檔案到 Discord 並回傳檔案網址**
+
+1.  定義回傳 `Result<String, Box<dyn std::error::Error>>`，如果上傳失敗，回傳 `Err`
+
+    ```rust
+    // src/discord/discord.rs
+    async fn upload(
+        file_name: &str,
+        data: &[u8],
+        channel_id: &str,
+        bot_api_key: &str,
+    ) -> Result<String, Box<dyn std::error::Error>> {
+        // ...
+    }
+    ```
+
+2.  製作 multipart form data 和 client
+
+    ```rust
+    let form = multipart::Form::new().part(
+        "file",
+        multipart::Part::bytes(data.to_vec()).file_name(file_name.to_string()),
+    );
+    let client = reqwest::Client::new();
+    ```
+
+3.  定義 Discord API 要求的 headers
+
+    ```rust
+    let mut headers = reqwest::header::HeaderMap::new();
+    headers.insert(
+        "Authorization",
+        format!("Bot {bot_api_key}", bot_api_key = bot_api_key)
+            .parse()
+            .unwrap(),
+    );
+
+    let url = DISCORD_CHANNEL_API.replace("{channel_id}", channel_id);
+    ```
+
+4.  發送 request 到 Discord API
+
+    ```rust
+    let response = client
+        .post(&url)
+        .headers(headers)
+        .multipart(form)
+        .send()
+        .await?;
+    ```
+
+5.  確定 response 成功並取得檔案網址
+
+    ```rust
+    if !response.status().is_success() {
+        return Err("Failed to send file".into());
+    }
+    let result: Value = match response.json().await {
+        Ok(result) => result,
+        Err(e) => return Err(e.into()),
+    };
+    let file_url = match result["attachments"][0]["url"].as_str() {
+        Some(url) => url,
+        None => return Err("Failed to get file URL".into()),
+    };
+    return Ok(file_url.to_string());
+    ```
+
+**`send_file` API 的主要 function**
+
+最後，再把這些 function 都包裝起來，提供一個簡單的 API。
+
+1.  定義 API，其中 `Multipart` 是從 `axum` 中提取的資料，`State` 是我們在 `main.rs` 中定義的共享資源，`Json` 是回傳。`State` 可以讓整個 App 公想的資源在這裡被使用。
+
+    ```rust
+    // src/discord/discord.rs
+    pub async fn send_file(
+        State(state): State<AppState>,
+        mut multipart: Multipart,
+    ) -> Json<serde_json::Value> {
+        // ...
+    }
+    ```
+
+2.  先呼叫已經定義好的 function 取得 channel ID
+
+    ```rust
+    let discord_info = &state.discord_info;
+
+    // Extract channel id
+    let channel_id = match get_channel_id(
+        &discord_info.bot_api_key,
+        &discord_info.guild_id,
+        &discord_info.channel_name,
+    )
+    .await
+    {
+        Ok(channel_id) => channel_id,
+        Err(e) => {
+            return (json!({"status": "error", "message": e.to_string()})).into();
+        }
+    };
+    ```
+
+3.  取得檔案，並上傳到 Discord 伺服器，回傳網址。如果成功，回傳 `ok`，否則回傳 `error`。
+
+    ```rust
+    if let Some(field) = multipart.next_field().await.unwrap() {
+        if let Some(file_name) = field.file_name().map(|x| x.to_string()) {
+            let data = field.bytes().await.unwrap();
+            match upload(&file_name, &data, &channel_id, &discord_info.bot_api_key).await {
+                Ok(s) => {
+                    return (json!({"status": "ok", "url": s})).into();
+                }
+                Err(e) => {
+                    return (json!({"status": "error", "message": e.to_string()})).into();
+                }
+            }
+        }
+    }
+
+    return (json!({"status": "error"})).into();
+    ```
+
+記得要在 `discord.rs` 最上方加上我們會用到的資源。
+
+```rust
+use axum::{
+    extract::{Multipart, State},
+    response::Json,
+};
+use reqwest::multipart;
+use serde_json::{json, Value};
+
+use crate::AppState;
+```
+
+## Deploy
+
+接下來，我們可以用 `shuttle deploy` 部署這個服務，並且可以透過 `curl` 或是 Postman 來測試 API。
+
+```bash
+curl -X POST -F 'file=@/path/to/file.png' http://your-ip/discord
+```
+
+如果對 Shuttle 不熟悉，可以參考 [Shuttle 官方文件](https://docs.shuttle.dev/introduction/docs)。注意要在 deploy 前，先用 `shuttle login` 登入。可以參考 Shuttle 的 [Quick Start](https://docs.shuttle.dev/getting-started/quick-start)。
