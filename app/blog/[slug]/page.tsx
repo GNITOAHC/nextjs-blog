@@ -1,9 +1,10 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
 
 // prettier-ignore
-export default function RedirectToPost({ params, }: { params: { slug: string } }) {
+export default function RedirectToPost(props: { params: Promise<{ slug: string }> }) {
+  const params = use(props.params);
   const { push } = useRouter()
 
   useEffect(() => {

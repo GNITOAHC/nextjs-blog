@@ -2,6 +2,7 @@ import React from 'react'
 import { ThemeIcon } from './ThemeIcon'
 import { cn } from '@/lib/utils'
 import { Menu } from 'lucide-react'
+import Link from 'next/link'
 
 function NavItem({
   title,
@@ -13,7 +14,7 @@ function NavItem({
   className?: string
 }) {
   return (
-    <a
+    <Link
       href={url}
       className={cn(
         'flex items-center text-foreground hover:scale-110 duration-300',
@@ -23,7 +24,7 @@ function NavItem({
       <p className="text-base font-medium" title={title}>
         {title}
       </p>
-    </a>
+    </Link>
   )
 }
 
@@ -32,12 +33,12 @@ export function Header() {
     <div className="px-0 py-1 m-0 mb-4 w-full flex items-center justify-between md:justify-start">
       <div className="w-full flex flex-1 items-center justify-between space-x-3">
         <nav className="flex space-x-3">
-          <a
+          <Link
             href="/"
             className="text-base font-medium text-foreground hover:text-accent"
           >
             ChaoTing
-          </a>
+          </Link>
         </nav>
 
         <nav className="hidden md:flex items-center space-x-5 md:ml-12 h-12">
@@ -74,28 +75,28 @@ export function Header() {
           <div className="fixed z-50 rounded-md group-hover/qq:visible invisible m-0 p-0 right-0 sm:right-[16%] w-fit overflow-auto transition-opacity cursor-default bg-neutral-100/50">
             <ul className="flex space-y-2 mt-2 flex-col items-end w-full px-6 py-1 mx-auto overflow-visible list-none text-left">
               <li className="mt-1">
-                <a
+                <Link
                   className="flex items-center text-gray-500 hover:text-sky-50"
                   href="/posts/"
                 >
                   Posts
-                </a>
+                </Link>
               </li>
               <li className="mt-1">
-                <a
+                <Link
                   className="flex items-center text-gray-500 hover:text-sky-50"
                   href="/projects/"
                 >
                   Projects
-                </a>
+                </Link>
               </li>
               <li className="mt-1">
-                <a
+                <Link
                   className="flex items-center text-gray-500 hover:text-sky-50"
                   href="/resume/"
                 >
                   Resume
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

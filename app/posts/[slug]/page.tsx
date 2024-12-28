@@ -4,11 +4,10 @@ import { CustomMDX, getToc } from '@/app/components/mdx'
 import { getPosts } from '@/lib/db/posts'
 import { Metadata } from 'next'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string }
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> {
+  const params = await props.params
   const post = getPosts().find((post) => post.slug === params.slug)
 
   if (!post) return
@@ -22,7 +21,10 @@ export async function generateMetadata({
 import { formatDate } from '@/lib/utils'
 import { TocComp, DropdownToc } from './Toc'
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page(props: {
+  params: Promise<{ slug: string }>
+}) {
+  const params = await props.params
   const post = getPosts().find((post) => post.slug === params.slug)
 
   if (!post) {
