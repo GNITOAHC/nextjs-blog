@@ -47,7 +47,7 @@ export default function SingleCard(prop: Props) {
             return (
               <span key={idx} className="mr-2">
                 <span
-                  className={`h-3 w-3 border inline-block relative rounded-lg ${langColor}`}
+                  className={`h-3 w-3 inline-block relative rounded-lg ${langColor}`}
                 />{' '}
                 <span>{lang}</span>
               </span>

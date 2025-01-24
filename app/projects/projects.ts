@@ -40,11 +40,26 @@ export const getColor = (lang: string) => {
       return 'bg-[#e34c26]'
     case 'Lua':
       return 'bg-[#000080]'
+    case 'Python':
+      return 'bg-[#3572A5]'
+    case 'Shell':
+      return 'bg-[#89e051]'
   }
 }
 
 export const getProjects = (): ProjectType[] => {
   return [
+    {
+      title: 'Cache-Augmented Generation',
+      content:
+        'Cache-Augmented Generation: A Simple, Efficient Alternative to RAG',
+      type: 'Standard',
+      url: 'https://github.com/hhhuang/CAG',
+      description:
+        'Cache-Augmented Generation: A Simple, Efficient Alternative to RAG',
+      topics: ['NLP', 'CAG', 'RAG', 'LLM'],
+      languages: ['Python', 'Shell'],
+    },
     {
       title: 'lsmanager',
       content:
