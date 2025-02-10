@@ -70,7 +70,7 @@ export function Posts({ posts }: { posts: Post[] }) {
       {/*     <input */}
       {/*       type="text" */}
       {/*       onChange={(e) => setQuery(e.target.value)} */}
-      {/*       className="max-w-xs bg-secondary rounded-md focus:outline-none p-1" */}
+      {/*       className="max-w-xs bg-secondary rounded-md focus:outline-hidden p-1" */}
       {/*     /> */}
       {/*   )} */}
       {/* </div> */}

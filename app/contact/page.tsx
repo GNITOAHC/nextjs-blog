@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <>
       <div className="h-full w-full flex justify-center items-center">
-        <div className="flex w-full bg-opacity-90 rounded-3xl shadow backdrop-blur-lg justify-between px-4">
+        <div className="flex w-full bg-opacity-90 rounded-3xl shadow-sm backdrop-blur-lg justify-between px-4">
           <textarea
             /* type="text" */
             onChange={(event) => setTextMessage(event.target.value)}
