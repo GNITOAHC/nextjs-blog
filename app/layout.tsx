@@ -31,10 +31,10 @@ export const metadata: Metadata = {
 function _HomePage({ children }: { children: React.ReactNode }) {
   return (
     <main className="p-0 sm:p-2 h-full">
-      <div className="h-full w-full flex justify-center sm:rounded-3xl backdrop-blur-3xl from-white/30 to-background bg-gradient-to-b border-foreground border-solid border-0 sm:border-[1px] overflow-scroll">
+      <div className="h-full w-full flex justify-center sm:rounded-3xl backdrop-blur-3xl from-white/30 to-background bg-linear-to-b border-foreground border-solid border-0 sm:border-[1px] overflow-scroll">
         <div className="w-[90%] sm:w-4/6 flex flex-col justify-items-center items-center">
           <Header />
-          <div className="relative flex flex-col flex-grow w-full">
+          <div className="relative flex flex-col grow w-full">
             {children}
             <Footer />
           </div>
@@ -46,7 +46,7 @@ function _HomePage({ children }: { children: React.ReactNode }) {
 
 function HomePage({ children }: { children: React.ReactNode }) {
   const sizeAndAlign = 'h-full w-full flex justify-center relative'
-  const backgroundGradient = 'from-white/30 to-background bg-gradient-to-b'
+  const backgroundGradient = 'from-white/30 to-background bg-linear-to-b'
   const border = 'border-foreground border-solid border-0 sm:border-[1px]'
   const round = 'sm:rounded-3xl'
   const overflow = 'overflow-scroll'
@@ -61,7 +61,7 @@ function HomePage({ children }: { children: React.ReactNode }) {
         <div className={cn(sizeAndAlign, backgroundGradient, border, round, overflow)} id="post-scroll-entry">
           <div className="w-[90%] max-w-full md:px-24 lg:px-32 flex flex-col justify-items-center items-center">
             <Header />
-            <div className="relative flex flex-col flex-grow w-full">
+            <div className="relative flex flex-col grow w-full">
               {children}
               <Footer />
             </div>
