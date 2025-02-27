@@ -99,7 +99,7 @@ export default function TagsFilter(props: TagsFilterProps) {
             <button
               key={idx}
               onClick={() => toggleTag(tag)}
-              className="bg-[#d6d6d6] text-black px-2 py-1 rounded"
+              className="bg-[#d6d6d6] text-black px-2 py-1 rounded hover:cursor-pointer"
             >
               {tag}
             </button>
@@ -110,7 +110,7 @@ export default function TagsFilter(props: TagsFilterProps) {
             <button
               key={idx}
               onClick={() => toggleTag(tag)}
-              className="px-2 py-1 rounded"
+              className="px-2 py-1 rounded cursor-pointer"
             >
               {tag}
             </button>

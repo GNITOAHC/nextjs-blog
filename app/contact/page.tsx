@@ -65,6 +65,7 @@ export default function Home() {
               sendMail(textMessage)
               setTextMessage('')
             }}
+            className="hover:cursor-pointer"
           >
             <SendHorizonal className="w-4 h-4" />
           </button>
