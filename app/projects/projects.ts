@@ -18,6 +18,12 @@ export const getApiContent = async (url: string) => {
     headers: { Authorization: 'Bearer ' + GITHUB_ACCESS_TOKEN },
     cache: 'no-store',
   })
+
+  if (!res.ok) {
+    console.log(`Error fetching data from ${url}:`, res.status, res.statusText)
+    return null
+  }
+
   const data = await res.json()
   return data
 }
