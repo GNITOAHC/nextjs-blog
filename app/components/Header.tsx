@@ -3,6 +3,7 @@ import { ThemeIcon } from './ThemeIcon'
 import { cn } from '@/lib/utils'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
+import { Dropdown } from './header/dropdown'
 
 function NavItem({
   title,
@@ -68,39 +69,7 @@ export function Header() {
         <div className="w-4 h-4 items-center grid">
           <ThemeIcon className="w-4 h-4" />
         </div>
-        <div className="group/qq">
-          <div className="w-4 h-4 items-center grid">
-            <Menu className="w-4 h-4" />
-          </div>
-          <div className="fixed z-50 rounded-md group-hover/qq:visible invisible m-0 p-0 right-0 sm:right-[16%] w-fit overflow-auto transition-opacity cursor-default bg-neutral-100/50">
-            <ul className="flex space-y-2 mt-2 flex-col items-end w-full px-6 py-1 mx-auto overflow-visible list-none text-left">
-              <li className="mt-1">
-                <Link
-                  className="flex items-center text-gray-500 hover:text-sky-50"
-                  href="/posts/"
-                >
-                  Posts
-                </Link>
-              </li>
-              <li className="mt-1">
-                <Link
-                  className="flex items-center text-gray-500 hover:text-sky-50"
-                  href="/projects/"
-                >
-                  Projects
-                </Link>
-              </li>
-              <li className="mt-1">
-                <Link
-                  className="flex items-center text-gray-500 hover:text-sky-50"
-                  href="/resume/"
-                >
-                  Resume
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <Dropdown className="w-4 h-4 items-center grid" />
       </nav>
     </div>
   )
