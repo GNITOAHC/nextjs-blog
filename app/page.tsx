@@ -26,7 +26,7 @@ export default function Home() {
         </ThemeComp>
       </p>
       <p>
-        I’m a 20-year-old computer science student passionate about technology,
+        I’m a 21-year-old computer science student passionate about technology,
         programming, and innovation. Currently, I’m based in Taipei/Taiwan,
         where I’m pursuing my degree and exploring the vast world of software
         development.

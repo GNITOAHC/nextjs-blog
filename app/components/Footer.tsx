@@ -12,7 +12,7 @@ export function Footer() {
         </a>
       </nav>
       <div className="flex items-center justify-between">
-        <span className="text-xs">© 2024 ChaoTing, Chen</span>
+        <span className="text-xs">© 2025 ChaoTing, Chen</span>
         <span className="text-xs">Powered by NextJs</span>
       </div>
     </footer>
