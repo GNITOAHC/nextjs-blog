@@ -1,7 +1,7 @@
 ---
 title: Docker Cheat Sheet
 date: 2024-09-16
-lastEdit: 2024-11-17
+lastEdit: 2025-06-14
 summary: Docker commands and tips
 tags: Docker
 ---
@@ -52,8 +52,10 @@ source: [cto.ai](https://cto.ai/blog/docker-image-vs-container-vs-dockerfile/)
 **Create and Run**
 
 - `docker run --name <container_name> <image_name>` - Create and run a container
-- `docker run -d <image_name>` - Run a container in detached mode (background)
 - `docker run -p <host_port>:<container_port> <image_name>` - Map a host port to a container port
+- `docker run -d <image_name>` - Run a container in detached mode (background)
+
+> `<image_name>` should always be the last argument in the command.
 
 **Start and Stop**
 
