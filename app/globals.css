@@ -152,7 +152,7 @@
 @layer components {
   .prose {
     h1:not(h1.not-prose, .not-prose h1) {
-      @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+      @apply mt-5 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
     }
     h2:not(h2.not-prose, .not-prose h2) {
       @apply mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 mb-2;
@@ -197,11 +197,6 @@
     /*   @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold; */
     /* } */
   }
-}
-
-[aria-hidden='true'] {
-  visibility: hidden;
-  display: none;
 }
 
 /* For Webkit-based browsers (Chrome, Safari and Opera) */

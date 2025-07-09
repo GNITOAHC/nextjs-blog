@@ -2,6 +2,9 @@ import withSlugs from 'rehype-slug'
 import withToc from '@stefanprobst/rehype-extract-toc'
 import withTocExport from '@stefanprobst/rehype-extract-toc/mdx'
 import { compile } from '@mdx-js/mdx'
+import rehypeKatex from 'rehype-katex'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 
 function logtoc(node: any) {
   const log = (node: any, idx: number) => {
@@ -38,12 +41,14 @@ function tocToList(node: any) {
 export async function getToc(source: string) {
   const file = await compile(source, {
     rehypePlugins: [
+      rehypeKatex,
       withSlugs,
       withToc,
       withTocExport,
       /** Optionally, provide a custom name for the export. */
       // [withTocExport, { name: 'toc' }],
     ],
+    remarkPlugins: [remarkGfm, remarkMath],
   })
 
   if (!file.data.toc) return null

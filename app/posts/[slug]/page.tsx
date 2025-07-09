@@ -21,6 +21,9 @@ export async function generateMetadata(props: {
 import { formatDate } from '@/lib/utils'
 import { TocComp, DropdownToc } from './Toc'
 
+import 'katex/dist/katex.css'
+import 'highlight.js/styles/github-dark.css'
+
 export default async function Page(props: {
   params: Promise<{ slug: string }>
 }) {

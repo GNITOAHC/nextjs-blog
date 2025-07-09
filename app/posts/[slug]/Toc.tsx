@@ -31,7 +31,7 @@ const children = (node: Toc) => {
             <a
               // href={`#${child.id}`}
               onClick={() => scrolltag(child.id)}
-              className="hover:text-sky-200"
+              className="hover:text-sky-200 cursor-pointer"
             >
               {child.value}
             </a>
